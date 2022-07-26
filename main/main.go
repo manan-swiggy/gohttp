@@ -21,7 +21,7 @@ func main() {
 }
 
 func UserHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, "editting user name")
+	fmt.Fprint(w, "editting user")
 	u := User{}
 
 	err := json.NewDecoder(r.Body).Decode(&u)
@@ -34,5 +34,17 @@ func UserHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, "editting user password")
+	fmt.Fprint(w, "fetching users")
+	u := User{}
+
+	content, err := ioutil.ReadFile("test.json")
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	_ = json.Unmarshal(content, &u)
+
+	// json.NewEncoder(content).Encode(&u)
+
+	fmt.Printf("%+v", u)
 }
